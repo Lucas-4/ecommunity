@@ -1,5 +1,8 @@
 import 'package:ecommunity/AppColors.dart';
 import 'package:flutter/material.dart';
+import 'package:ecommunity/ai_assistant.dart';
+import 'package:ecommunity/about.dart';
+import 'package:ecommunity/signup.dart';
 
 void main() {
   runApp(const App());
@@ -124,9 +127,30 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(icon: Icon(Icons.home), onPressed: null),
-            IconButton(icon: Icon(Icons.home), onPressed: null),
-            IconButton(icon: Icon(Icons.home), onPressed: null),
-            IconButton(icon: Icon(Icons.home), onPressed: null),
+            //estava sendo repetido 4 vezes abaixo por algum motivo, comentei por enquanto para caso cause problema
+            //IconButton(icon: Icon(Icons.home), onPressed: null),
+            //IconButton(icon: Icon(Icons.home), onPressed: null),
+            //IconButton(icon: Icon(Icons.home), onPressed: null),
+            IconButton(icon: Icon(Icons.store), onPressed: null), //esse é para o marketplace 
+            IconButton(
+              icon: Icon(Icons.assistant), 
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AiAssistantScreen()),
+                );
+              },
+            ),
+            //aqui a gente linka para o profile/sign-in(up)
+            IconButton(icon: Icon(Icons.person), onPressed: null),
+            //aqui a gente link para o about
+            IconButton(icon: Icon(Icons.info), 
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AboutPage()),
+              );
+            }),
           ],
         ),
       ),

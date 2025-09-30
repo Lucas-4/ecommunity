@@ -3,8 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:ecommunity/ai_assistant.dart';
 import 'package:ecommunity/about.dart';
 import 'package:ecommunity/signup.dart';
+import 'dart:io';
+import 'package:ecommunity/signup.dart';
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
+
   runApp(const App());
 }
 
@@ -83,22 +96,29 @@ class _HomePageState extends State<HomePage> {
   // Dummy data for the posts
   final List<Post> posts = [
     Post(
-      username: 'FlutterDev',
+      username: 'ecofriendly',
       userAvatarUrl: 'https://i.pravatar.cc/150?img=1',
-      postImageUrl: 'https://picsum.photos/600/400?image=10',
-      caption: 'Loving the new features in Flutter 3!',
+      postImageUrl:
+          'https://media.istockphoto.com/id/1659684092/pt/foto/a-view-up-into-the-trees-direction-sky.jpg?s=1024x1024&w=is&k=20&c=w_bm_55yc8QGZwvdAHvr7ByWnihRyPDKGaT8OUMXl3w=',
+      caption:
+          '“Just swapped out all my plastic bags for reusable cotton ones! Small steps make a big impact 🌍♻️ #PlasticFree #Sustainability”',
     ),
     Post(
       username: 'eco',
       userAvatarUrl: 'https://i.pravatar.cc/150?img=2',
-      postImageUrl: 'https://picsum.photos/600/400?image=20',
-      caption: 'Dart is such a powerful and versatile language.',
+      postImageUrl:
+          'https://cdn.pixabay.com/photo/2023/02/14/04/39/volunteer-7788809_1280.jpg',
+      caption:
+          'Did you know glass can be recycled endlessly without losing quality? Make sure to clean your jars before recycling!',
     ),
     Post(
       username: 'proRecycler',
-      userAvatarUrl: 'https://images.pexels.com/photos/1053845/pexels-photo-1053845.jpeg',
-      postImageUrl: 'https://picsum.photos/600/400?image=30',
-      caption: 'Just starting my journey with Flutter. Any tips?',
+      userAvatarUrl:
+          'https://images.pexels.com/photos/1053845/pexels-photo-1053845.jpeg',
+      postImageUrl:
+          'https://media.istockphoto.com/id/1342229204/pt/foto/a-lake-in-the-shape-of-a-recycling-sign-in-the-middle-of-untouched-nature-an-ecological.jpg?s=1024x1024&w=is&k=20&c=Q-Cvz4PFNrktJnUxFVNeBIh-LkapsjjYBfYGXvZc-RU=',
+      caption:
+          'Upcycled my old t-shirts into reusable shopping bags! Who else loves DIY projects?',
     ),
   ];
 
@@ -131,26 +151,39 @@ class _HomePageState extends State<HomePage> {
             //IconButton(icon: Icon(Icons.home), onPressed: null),
             //IconButton(icon: Icon(Icons.home), onPressed: null),
             //IconButton(icon: Icon(Icons.home), onPressed: null),
-            IconButton(icon: Icon(Icons.store), onPressed: null), //esse é para o marketplace 
+            IconButton(icon: Icon(Icons.store), onPressed: null),
+            //esse é para o marketplace
             IconButton(
-              icon: Icon(Icons.assistant), 
+              icon: Icon(Icons.assistant),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const AiAssistantScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => const AiAssistantScreen(),
+                  ),
                 );
               },
             ),
             //aqui a gente linka para o profile/sign-in(up)
-            IconButton(icon: Icon(Icons.person), onPressed: null),
+            IconButton(
+              icon: Icon(Icons.person),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginWidget()),
+                );
+              },
+            ),
             //aqui a gente link para o about
-            IconButton(icon: Icon(Icons.info), 
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const AboutPage()),
-              );
-            }),
+            IconButton(
+              icon: Icon(Icons.info),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AboutPage()),
+                );
+              },
+            ),
           ],
         ),
       ),
